@@ -1,0 +1,9 @@
+cd $GUNNS_HOME
+cd ./lib/test
+make "$@"
+cd ../no_trick
+make "$@"
+cd ../trick
+make "$@"
+cd ../trick_if
+make "$@"

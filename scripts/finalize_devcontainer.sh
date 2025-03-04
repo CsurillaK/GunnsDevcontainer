@@ -1,0 +1,1 @@
+cp -r /home/GunnsDevcontainer/.vscode /home/.vscode

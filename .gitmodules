@@ -1,0 +1,3 @@
+[submodule "gunns"]
+	path = gunns
+	url = https://github.com/nasa/gunns.git
