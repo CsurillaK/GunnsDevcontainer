@@ -1,24 +1,28 @@
 {
 	"name": "gunns_dev",
 	"image": "gunns:latest",
-	"workspaceFolder": "/home",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/home/GunnsDevcontainer,type=bind",
 	"initializeCommand": "bash ./scripts/build_devcontainer.sh",
 	"postStartCommand": "bash /home/GunnsDevcontainer/scripts/finalize_devcontainer.sh",
-    "runArgs": [
+	"runArgs": [
 		// "--add-host", "host.docker.internal:host-gateway",
-		"--add-host", "localhost:host-gateway",
-		"--env", "DISPLAY=localhost:0.0",
-		"--env", "GUNNS_HOME=/home/GunnsDevcontainer/gunns"
-    ],
+		"--add-host",
+		"localhost:host-gateway",
+		"--env",
+		"DISPLAY=localhost:0.0",
+		"--env",
+		"GUNNS_HOME=/home/GunnsDevcontainer/gunns"
+	],
+	"workspaceFolder": "/home",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/GunnsDevcontainer,type=bind",
 	"customizations": {
-	  "vscode": {
-		"extensions": [
-			"ms-vscode.cpptools",
-			"ms-vscode.cpptools-extension-pack",
-			"ms-vscode.cmake-tools",
-			"ms-vscode.makefile-tools",
-			"ms-python.python"]
-	  }
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.cmake-tools",
+				"ms-vscode.makefile-tools",
+				"ms-python.python"
+			]
+		}
 	}
-  }
+}

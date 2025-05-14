@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build GUNNS Library",
+            "type": "shell",
+            "command": "${workspaceFolder}/GunnsDevcontainer/scripts/build_gunns.sh",
+            "args": [ "${input:libraryName}" ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ],
+    "inputs": [
+        {
+            "id": "libraryName",
+            "description": "Select library to build:",
+            "type": "pickString",
+            "options": [
+                "no_trick",
+                "test",
+                "trick",
+                "trick_if"
+            ]
+        }
+    ]
+}
