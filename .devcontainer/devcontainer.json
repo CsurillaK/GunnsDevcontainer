@@ -1,8 +1,9 @@
 {
 	"name": "gunns_dev",
 	"image": "gunns:latest",
+	"workspaceFolder": "/workspaces/GunnsDevcontainer",
 	"initializeCommand": "bash ./scripts/build_devcontainer.sh",
-	"postStartCommand": "bash /home/GunnsDevcontainer/scripts/finalize_devcontainer.sh",
+	"postStartCommand": "bash /workspaces/GunnsDevcontainer/scripts/finalize_devcontainer.sh",
 	"runArgs": [
 		// "--add-host", "host.docker.internal:host-gateway",
 		"--add-host",
@@ -10,10 +11,8 @@
 		"--env",
 		"DISPLAY=localhost:0.0",
 		"--env",
-		"GUNNS_HOME=/home/GunnsDevcontainer/gunns"
+		"GUNNS_HOME=/workspaces/GunnsDevcontainer/gunns"
 	],
-	"workspaceFolder": "/home",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/home/GunnsDevcontainer,type=bind",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -21,7 +20,8 @@
 				"ms-vscode.cpptools-extension-pack",
 				"ms-vscode.cmake-tools",
 				"ms-vscode.makefile-tools",
-				"ms-python.python"
+				"ms-python.python",
+				"spmeesseman.vscode-taskexplorer"
 			]
 		}
 	}

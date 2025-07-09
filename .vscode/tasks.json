@@ -4,13 +4,19 @@
         {
             "label": "Build GUNNS Library",
             "type": "shell",
-            "command": "${workspaceFolder}/GunnsDevcontainer/scripts/build_gunns.sh",
+            "command": "${workspaceFolder}/scripts/build_gunns.sh",
             "args": [ "${input:libraryName}" ],
             "problemMatcher": [],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+        },
+        {
+            "label": "Build Current XML Network",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/build_network.sh ${file}",
+            "problemMatcher": []
         }
     ],
     "inputs": [
