@@ -17,12 +17,10 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-SOURCE_DIR="${NETWORK_DIR}/src"
+SOURCE_DIR="${NETWORK_DIR}/gen"
 rm -rf $SOURCE_DIR
 mkdir -p $SOURCE_DIR
 mv "${NETWORK_FILEBASEPATH}.cpp" $SOURCE_DIR
 mv "${NETWORK_FILEBASEPATH}.hh" $SOURCE_DIR
-
-# echo "src/" > "${NETWORK_DIR}/.gitignore"
 
 rm -f "${NETWORK_FILEPATH}.bak"
