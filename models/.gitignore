@@ -2,3 +2,4 @@ gen/
 build/
 *.bak
 *.bkp
+*.png
