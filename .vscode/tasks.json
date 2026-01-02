@@ -13,7 +13,7 @@
             },
         },
         {
-            "label": "Build Current XML Network",
+            "label": "Build Current DrawIO Network",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/build_network.sh ${file}",
             "problemMatcher": []

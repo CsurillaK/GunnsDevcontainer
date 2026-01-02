@@ -1,5 +1,13 @@
+# GUNNS netexport result folder
 gen/
+
+# Makefile build folder
 build/
+
+# DrawIO network auxiliary file types
 *.bak
 *.bkp
+*.dtmp
+
+# Plots
 *.png

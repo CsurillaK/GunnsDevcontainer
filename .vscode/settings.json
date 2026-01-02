@@ -61,5 +61,6 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "*.sm": "cpp"
-    }
+    },
+    "cmake.ignoreCMakeListsMissing": true
 }
