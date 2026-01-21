@@ -13,7 +13,7 @@ struct Data
     double ExactPressure;
 };
 
-void log(LeakNetwork const &network, double time, std::vector<Data> &data, double exactPressure)
+void log(LeakNetwork const &network, const double time, std::vector<Data> &data, const double exactPressure)
 {
     std::cout << "[" << time << "s] "
               << "Leak flowrate: " << network.leak.getFlowRate() << " kg/s | "
@@ -43,18 +43,16 @@ void plot(std::vector<Data> &data)
     plt::named_plot("Simulation", times, simulatedPressures, "b-");
     plt::named_plot("Exact", times, exactPressures, "r--");
     plt::legend();
-    plt::xlabel("Time (s)");
-    plt::ylabel("Tank Pressure (kPa)");
-    plt::title("Leaking tank");
+    plt::xlabel("Time [s]");
+    plt::ylabel("Tank pressure [kPa]");
     plt::grid(true);
     plt::save("./plot/leak_tank_pressure.png");
 }
 
-int main(int argc, char **argv)
+int main()
 {
-
-    LeakNetwork network("leak");
-    network.initialize("leak");
+    LeakNetwork network("LeakNetwork");
+    network.initialize("LeakNetwork");
 
     ExactSolution exactSolution(
         network.netConfig.leak.mMaxConductivity / 2,         // leakArea: GUNNS conductivity must be divided by square root of two twice:
@@ -79,9 +77,6 @@ int main(int argc, char **argv)
     }
 
     plot(data);
-
-    std::cout << network.tank.getNodeContent()->getMWeight() << std::endl;
-    std::cout << network.tank.getNodeContent()->getTemperature() << std::endl;
 
     return 0;
 }
