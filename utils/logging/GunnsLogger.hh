@@ -27,6 +27,11 @@ public:
         }
         message << mtext << std::endl;
 
+        if (isFiltered(mtext))
+        {
+            return;
+        }
+
         if (type >= TS_HS_MSG_TYPE::TS_HS_ERROR)
         {
             std::cerr << message.str() << std::endl;
@@ -46,4 +51,16 @@ public:
     }
 
     void update() {}
+
+private:
+    static bool isFiltered(const std::string &mtext)
+    {
+        // Network graph contains a cycle
+        if (mtext.find("early overflow transport") != std::string::npos)
+        {
+            return true;
+        }
+
+        return false;
+    }
 };
