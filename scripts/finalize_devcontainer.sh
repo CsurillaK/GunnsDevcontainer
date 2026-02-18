@@ -8,4 +8,8 @@ git config --global --add safe.directory ${WORKSPACE_DIR}/gunns
 git config --global core.autocrlf true
 
 # Make scripts executable by VSCode tasks
-chmod +x ${SCRIPT_DIR}/*.sh
+chown $(whoami) ${SCRIPT_DIR}/*.sh || echo "Warning: chown failed, check file ownership"
+chmod +x ${SCRIPT_DIR}/*.sh || echo "Warning: chmod failed, check file permissions"
+
+# Install dependencies missing from Dockerfile
+pip3 install --user matplotlib

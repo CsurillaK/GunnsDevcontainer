@@ -5,11 +5,10 @@
 	"initializeCommand": "bash ./scripts/build_devcontainer.sh",
 	"postStartCommand": "bash /workspaces/GunnsDevcontainer/scripts/finalize_devcontainer.sh",
 	"runArgs": [
-		// "--add-host", "host.docker.internal:host-gateway",
+		"--network",
+		"host",
 		"--add-host",
-		"localhost:host-gateway",
-		"--env",
-		"DISPLAY=localhost:0.0",
+		"host.docker.internal:host-gateway",
 		"--env",
 		"GUNNS_HOME=/workspaces/GunnsDevcontainer/gunns"
 	],
@@ -21,7 +20,7 @@
 				"ms-vscode.cmake-tools",
 				"ms-vscode.makefile-tools",
 				"ms-python.python",
-				"spmeesseman.vscode-taskexplorer"
+				"spmeesseman.vscode-taskexplorer@2.13.14"
 			]
 		}
 	}

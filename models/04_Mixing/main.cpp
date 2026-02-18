@@ -18,12 +18,18 @@ struct Data
     double DemandFlowRate;          // [kg/s]
 };
 
+// @return Mass percentage, relative to reference solution [%]
+double calculateConcentration(PolyFluid const *nodeContent, ChemicalCompound::Type compound)
+{
+    return nodeContent->getTraceCompounds()->getMass(compound) / nodeContent->getMass() * 100;
+}
+
 void log(MixingNetwork const &network, double time, std::vector<Data> &data)
 {
     data.push_back({time,
-                    network.mixing_chamber_1.getNodeContent(0)->getTraceCompounds()->getMoleFraction(ChemicalCompound::LI2CO3),
-                    network.mixing_chamber_2.getNodeContent(0)->getTraceCompounds()->getMoleFraction(ChemicalCompound::LI2CO3),
-                    network.mixing_chamber_2.getNodeContent(0)->getTraceCompounds()->getMoleFraction(ChemicalCompound::H3PO4),
+                    calculateConcentration(network.mixing_chamber_1.getNodeContent(0), ChemicalCompound::LI2CO3),
+                    calculateConcentration(network.mixing_chamber_2.getNodeContent(0), ChemicalCompound::LI2CO3),
+                    calculateConcentration(network.mixing_chamber_2.getNodeContent(0), ChemicalCompound::H3PO4),
                     network.external_demand.getSourcePressure(),
                     network.mixing_chamber_1.getNodeContent(0)->getPressure(),
                     network.mixing_chamber_2.getNodeContent(0)->getPressure(),
@@ -67,7 +73,7 @@ void plot(std::vector<Data> &data)
     plt::named_plot("Chamber 2 - H3PO4", times, mixingChamber2Acid, "b-");
     plt::legend();
     plt::xlabel("Time [s]");
-    plt::ylabel("Trace compound concentration [-]");
+    plt::ylabel("Mass concentration [%]");
     plt::grid(true);
     plt::save("./plot/concentrations.png");
 
@@ -120,14 +126,14 @@ int main()
     simulateDuration(1.0, time, timestep, network, data);
 
     network.lithium_carbonate_pump.setFlowDemand(0.01);
-    simulateDuration(10.0, time, timestep, network, data);
+    simulateDuration(40.0, time, timestep, network, data);
 
     network.phosphoric_acid_pump.setFlowDemand(0.02);
-    simulateDuration(10.0, time, timestep, network, data);
+    simulateDuration(40.0, time, timestep, network, data);
 
     network.lithium_carbonate_pump.setFlowDemand(0.0);
     network.phosphoric_acid_pump.setFlowDemand(0.0);
-    simulateDuration(20.0, time, timestep, network, data);
+    simulateDuration(40.0, time, timestep, network, data);
 
     plot(data);
 
