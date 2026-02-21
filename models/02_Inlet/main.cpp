@@ -6,54 +6,41 @@ namespace plt = matplotlibcpp;
 
 struct Data
 {
-    double Time;
-    double Tube_Pressure; // kPa
-    double Tube_Volume;   // m^3
+    std::vector<double> Time;          // [s]
+    std::vector<double> Tube_Pressure; // [kPa]
+    std::vector<double> Tube_Volume;   // [m^3]
 };
 
-void log(InletNetwork const &network, double time, std::vector<Data> &data)
+void log(InletNetwork const &network, double time, Data &data)
 {
     // std::cout << "[" << time << "s] "
     //           << "Gear pump flow rate: " << network.gear_pump.getFlowRate() << " kg/s | "
     //           << "Gear pump limiter flow rate: " << network.gear_pump_limiter.getFlowRate() << " kg/s | "
     //           << "Gear pump limiter position: " << network.gear_pump_limiter.getPosition() * 100 << " % | "
     //           << "Inlet tube bellows position: " << network.inlet_tube.getBellowsPosition() << std::endl;
-    data.push_back({time,
-                    network.inlet_tube.getNodeContent(1)->getPressure(), // network.netNodes[InletNetwork::Nodes::Node1].getPotential()
-                    network.inlet_tube.getBellowsPosition() * network.netConfig.inlet_tube.mAccumVolume});
+    data.Time.push_back(time);
+    data.Tube_Pressure.push_back(network.inlet_tube.getNodeContent(1)->getPressure()); // network.netNodes[InletNetwork::Nodes::Node1].getPotential()
+    data.Tube_Volume.push_back(network.inlet_tube.getBellowsPosition() * network.netConfig.inlet_tube.mAccumVolume);
 }
 
-void plot(std::vector<Data> &data)
+void plot(Data const &data)
 {
-    std::vector<double> times(data.size());
-    std::vector<double> tube_pressures(data.size());
-    std::vector<double> tube_volumes(data.size());
-
-    int index = 0;
-    for (const auto &entry : data)
-    {
-        times[index] = entry.Time;
-        tube_pressures[index] = entry.Tube_Pressure;
-        tube_volumes[index] = entry.Tube_Volume * 1.0E6; // m^3 to ml
-        index++;
-    }
-
     plt::figure();
-    plt::plot(times, tube_pressures);
+    plt::plot(data.Time, data.Tube_Pressure);
     plt::xlabel("Time [s]");
     plt::ylabel("Tube pressure [kPa]");
     plt::grid(true);
     plt::save("./plot/inlet_tube_pressure.png");
 
     plt::figure();
-    plt::plot(times, tube_volumes);
+    plt::plot(data.Time, data.Tube_Volume);
     plt::xlabel("Time [s]");
     plt::ylabel("Tube volume [ml]");
     plt::grid(true);
     plt::save("./plot/inlet_tube_volume.png");
 }
 
-void simulateDuration(const double duration, double &time, const double timeStep, InletNetwork &network, std::vector<Data> &data)
+void simulateDuration(const double duration, double &time, const double timeStep, InletNetwork &network, Data &data)
 {
     const double endTime = time + duration;
     while (time < endTime)
@@ -74,7 +61,7 @@ int main()
 
     const double timestep = 0.1;
     double time = 0.0;
-    std::vector<Data> data;
+    Data data;
     log(network, time, data);
 
     simulateDuration(1.0, time, timestep, network, data);

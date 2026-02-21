@@ -6,16 +6,16 @@ namespace plt = matplotlibcpp;
 
 struct Data
 {
-    double Time;
-    double MixingChamber1Carbonate; // Purity [-]
-    double MixingChamber2Carbonate; // Purity [-]
-    double MixingChamber2Acid;      // Purity [-]
-    double SupplyPressure;          // [kPa]
-    double MixingChamber1Pressure;  // [kPa]
-    double MixingChamber2Pressure;  // [kPa]
-    double Pipe1FlowRate;           // [kg/s]
-    double Pipe2FlowRate;           // [kg/s]
-    double DemandFlowRate;          // [kg/s]
+    std::vector<double> Time;                    // [s]
+    std::vector<double> MixingChamber1Carbonate; // Purity [%]
+    std::vector<double> MixingChamber2Carbonate; // Purity [%]
+    std::vector<double> MixingChamber2Acid;      // Purity [%]
+    std::vector<double> SupplyPressure;          // [kPa]
+    std::vector<double> MixingChamber1Pressure;  // [kPa]
+    std::vector<double> MixingChamber2Pressure;  // [kPa]
+    std::vector<double> Pipe1FlowRate;           // [kg/s]
+    std::vector<double> Pipe2FlowRate;           // [kg/s]
+    std::vector<double> DemandFlowRate;          // [kg/s]
 };
 
 // @return Mass percentage, relative to reference solution [%]
@@ -24,53 +24,26 @@ double calculateConcentration(PolyFluid const *nodeContent, ChemicalCompound::Ty
     return nodeContent->getTraceCompounds()->getMass(compound) / nodeContent->getMass() * 100;
 }
 
-void log(MixingNetwork const &network, double time, std::vector<Data> &data)
+void log(MixingNetwork const &network, double time, Data &data)
 {
-    data.push_back({time,
-                    calculateConcentration(network.mixing_chamber_1.getNodeContent(0), ChemicalCompound::LI2CO3),
-                    calculateConcentration(network.mixing_chamber_2.getNodeContent(0), ChemicalCompound::LI2CO3),
-                    calculateConcentration(network.mixing_chamber_2.getNodeContent(0), ChemicalCompound::H3PO4),
-                    network.external_demand.getSourcePressure(),
-                    network.mixing_chamber_1.getNodeContent(0)->getPressure(),
-                    network.mixing_chamber_2.getNodeContent(0)->getPressure(),
-                    network.pipe_1.getFlowRate(),
-                    network.pipe_2.getFlowRate(),
-                    network.external_supply.getFlowDemand()});
+    data.Time.push_back(time);
+    data.MixingChamber1Carbonate.push_back(calculateConcentration(network.mixing_chamber_1.getNodeContent(0), ChemicalCompound::LI2CO3));
+    data.MixingChamber2Carbonate.push_back(calculateConcentration(network.mixing_chamber_2.getNodeContent(0), ChemicalCompound::LI2CO3));
+    data.MixingChamber2Acid.push_back(calculateConcentration(network.mixing_chamber_2.getNodeContent(0), ChemicalCompound::H3PO4));
+    data.SupplyPressure.push_back(network.external_demand.getSourcePressure());
+    data.MixingChamber1Pressure.push_back(network.mixing_chamber_1.getNodeContent(0)->getPressure());
+    data.MixingChamber2Pressure.push_back(network.mixing_chamber_2.getNodeContent(0)->getPressure());
+    data.Pipe1FlowRate.push_back(network.pipe_1.getFlowRate());
+    data.Pipe2FlowRate.push_back(network.pipe_2.getFlowRate());
+    data.DemandFlowRate.push_back(network.external_supply.getFlowDemand());
 }
 
-void plot(std::vector<Data> &data)
+void plot(Data const &data)
 {
-    std::vector<double> times(data.size());
-    std::vector<double> mixingChamber1Carbonate(data.size());
-    std::vector<double> mixingChamber2Carbonate(data.size());
-    std::vector<double> mixingChamber2Acid(data.size());
-    std::vector<double> supplyPressures(data.size());
-    std::vector<double> mixingChamber1Pressures(data.size());
-    std::vector<double> mixingChamber2Pressures(data.size());
-    std::vector<double> pipe1FlowRates(data.size());
-    std::vector<double> pipe2FlowRates(data.size());
-    std::vector<double> demandFlowRates(data.size());
-
-    int index = 0;
-    for (const auto &entry : data)
-    {
-        times[index] = entry.Time;
-        mixingChamber1Carbonate[index] = entry.MixingChamber1Carbonate;
-        mixingChamber2Carbonate[index] = entry.MixingChamber2Carbonate;
-        mixingChamber2Acid[index] = entry.MixingChamber2Acid;
-        supplyPressures[index] = entry.SupplyPressure;
-        mixingChamber1Pressures[index] = entry.MixingChamber1Pressure;
-        mixingChamber2Pressures[index] = entry.MixingChamber2Pressure;
-        pipe1FlowRates[index] = entry.Pipe1FlowRate;
-        pipe2FlowRates[index] = entry.Pipe2FlowRate;
-        demandFlowRates[index] = entry.DemandFlowRate;
-        index++;
-    }
-
     plt::figure();
-    plt::named_plot("Chamber 1 - LI2CO3", times, mixingChamber1Carbonate, "r-");
-    plt::named_plot("Chamber 2 - LI2CO3", times, mixingChamber2Carbonate, "g-");
-    plt::named_plot("Chamber 2 - H3PO4", times, mixingChamber2Acid, "b-");
+    plt::named_plot("Chamber 1 - LI2CO3", data.Time, data.MixingChamber1Carbonate, "r-");
+    plt::named_plot("Chamber 2 - LI2CO3", data.Time, data.MixingChamber2Carbonate, "g-");
+    plt::named_plot("Chamber 2 - H3PO4", data.Time, data.MixingChamber2Acid, "b-");
     plt::legend();
     plt::xlabel("Time [s]");
     plt::ylabel("Mass concentration [%]");
@@ -78,9 +51,9 @@ void plot(std::vector<Data> &data)
     plt::save("./plot/concentrations.png");
 
     plt::figure();
-    plt::named_plot("Supply", times, supplyPressures, "r-");
-    plt::named_plot("Chamber 1", times, mixingChamber1Pressures, "g-");
-    plt::named_plot("Chamber 2", times, mixingChamber2Pressures, "b-");
+    plt::named_plot("Supply", data.Time, data.SupplyPressure, "r-");
+    plt::named_plot("Chamber 1", data.Time, data.MixingChamber1Pressure, "g-");
+    plt::named_plot("Chamber 2", data.Time, data.MixingChamber2Pressure, "b-");
     plt::legend();
     plt::xlabel("Time [s]");
     plt::ylabel("Pressure [kPa]");
@@ -88,9 +61,9 @@ void plot(std::vector<Data> &data)
     plt::save("./plot/pressures.png");
 
     plt::figure();
-    plt::named_plot("Pipe 1", times, pipe1FlowRates, "r-");
-    plt::named_plot("Pipe 2", times, pipe2FlowRates, "g-");
-    plt::named_plot("Demand", times, demandFlowRates, "b-");
+    plt::named_plot("Pipe 1", data.Time, data.Pipe1FlowRate, "r-");
+    plt::named_plot("Pipe 2", data.Time, data.Pipe2FlowRate, "g-");
+    plt::named_plot("Demand", data.Time, data.DemandFlowRate, "b-");
     plt::legend();
     plt::xlabel("Time [s]");
     plt::ylabel("Flow rate [kg/s]");
@@ -98,7 +71,7 @@ void plot(std::vector<Data> &data)
     plt::save("./plot/flowrates.png");
 }
 
-void simulateDuration(const double duration, double &time, const double timeStep, MixingNetwork &network, std::vector<Data> &data)
+void simulateDuration(const double duration, double &time, const double timeStep, MixingNetwork &network, Data &data)
 {
     const double endTime = time + duration;
     while (time < endTime)
@@ -119,7 +92,7 @@ int main()
 
     const double timestep = 0.1;
     double time = 0.0;
-    std::vector<Data> data;
+    Data data;
     log(network, time, data);
 
     network.external_supply.setFlowDemand(0.1);

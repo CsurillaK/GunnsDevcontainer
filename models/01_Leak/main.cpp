@@ -8,12 +8,12 @@ namespace plt = matplotlibcpp;
 
 struct Data
 {
-    double Time;
-    double SimulatedPressure;
-    double ExactPressure;
+    std::vector<double> Time;              // [s]
+    std::vector<double> SimulatedPressure; // [kPa]
+    std::vector<double> ExactPressure;     // [kPa]
 };
 
-void log(LeakNetwork const &network, const double time, std::vector<Data> &data, const double exactPressure)
+void log(LeakNetwork const &network, const double time, Data &data, const double exactPressure)
 {
     std::cout << "[" << time << "s] "
               << "Leak flowrate: " << network.leak.getFlowRate() << " kg/s | "
@@ -21,27 +21,16 @@ void log(LeakNetwork const &network, const double time, std::vector<Data> &data,
               << "Tank pressure: " << network.tank.getNodeContent()->getPressure() << " kPa | "
               << "Tank O2 mole ratio: " << network.tank.getNodeContent()->getMoleFraction(FluidProperties::GUNNS_O2) * 100 << " % | " << std::endl;
 
-    data.push_back({time, network.tank.getNodeContent()->getPressure(), exactPressure});
+    data.Time.push_back(time);
+    data.SimulatedPressure.push_back(network.tank.getNodeContent()->getPressure());
+    data.ExactPressure.push_back(exactPressure);
 }
 
-void plot(std::vector<Data> &data)
+void plot(Data const &data)
 {
-    std::vector<double> times(data.size());
-    std::vector<double> simulatedPressures(data.size());
-    std::vector<double> exactPressures(data.size());
-
-    int index = 0;
-    for (const auto &entry : data)
-    {
-        times[index] = entry.Time;
-        simulatedPressures[index] = entry.SimulatedPressure;
-        exactPressures[index] = entry.ExactPressure;
-        index++;
-    }
-
     plt::figure();
-    plt::named_plot("Simulation", times, simulatedPressures, "b-");
-    plt::named_plot("Exact", times, exactPressures, "r--");
+    plt::named_plot("Simulation", data.Time, data.ExactPressure, "b-");
+    plt::named_plot("Exact", data.Time, data.ExactPressure, "r--");
     plt::legend();
     plt::xlabel("Time [s]");
     plt::ylabel("Tank pressure [kPa]");
@@ -66,7 +55,7 @@ int main()
 
     int stepCount = 1000;
     double timeStep = 1;
-    std::vector<Data> data;
+    Data data;
     log(network, 0.0, data, exactSolution.getPressure(0.0));
     for (int step = 0; step < stepCount; ++step)
     {
