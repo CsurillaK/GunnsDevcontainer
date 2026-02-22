@@ -1,0 +1,149 @@
+<mxGraphModel dx="970" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="0" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="3" parent="0" value="Notes" />
+    <mxCell id="1" parent="0" value="Network" />
+    <object label="Super-Network" About="Super-Network" c00.convergenceTolerance="1.0000" c01.minLinearizationPotential="0.001" c02.minorStepLimit="10" c03.decompositionLimit="1" SimVariable="None" id="2">
+      <gunns type="Network" subtype="Super" />
+      <mxCell parent="1" style="swimlane;startSize=20;fillColor=#FFF4C3;strokeColor=#000000;" vertex="1">
+        <mxGeometry height="370" width="510" x="10" y="10" as="geometry">
+          <mxRectangle height="20" width="160" x="20" y="100" as="alternateBounds" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Network" c00.convergenceTolerance="" c01.minLinearizationPotential="" c02.minorStepLimit="" c03.decompositionLimit="" label="MixingNetwork" SimVariable="None" SuperNodesOffset="0" sourceDrawing="/MixingNetwork.drawio" id="ZAQFH38VJ2PCFHE1KPZ1-7">
+      <gunns subtype="Sub" type="Network" drawingId="rEC5gbi7_UDHWNt61vU2-7" />
+      <mxCell parent="2" style="swimlane;startSize=20;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=middle;direction=east;" vertex="1">
+        <mxGeometry height="150" width="360" x="80" y="40" as="geometry">
+          <mxRectangle height="20" width="200" x="20" y="40" as="alternateBounds" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Sub-Network Interface" label="interface_ToMixing" id="4LRGJ18FYFQ6435Y20E5-1">
+      <gunns subtype="Subnet Interface" type="Network" drawingId="nHsqS_iWtKG0IdmvCzVl-1" />
+      <gunnsSubnetIfConnection Key="MixingIn" Link="pipe_1" Map="-1, 0" Port="0" />
+      <gunnsSubnetIfNodeCount count="2" />
+      <mxCell parent="ZAQFH38VJ2PCFHE1KPZ1-7" style="swimlane;startSize=20;strokeColor=#d79b00;fillColor=#ffe6cc;" vertex="1">
+        <mxGeometry height="100" width="130" x="10" y="30" as="geometry">
+          <mxRectangle height="20" width="120" x="30" y="201" as="alternateBounds" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Ground Node" Key="MixingIn" label="" id="4LRGJ18FYFQ6435Y20E5-3">
+      <gunns subtype="Ground" type="Node" drawingId="nHsqS_iWtKG0IdmvCzVl-3" />
+      <mxCell parent="4LRGJ18FYFQ6435Y20E5-1" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;fillColor=#eeeeee;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.electrical.signal_sources.signal_ground;strokeColor=#36393d;direction=south;" vertex="1">
+        <mxGeometry height="20" width="20" x="50" y="52" as="geometry" />
+      </mxCell>
+    </object>
+    <object About="Sub-Network Interface" label="interface_FromMixing" id="4LRGJ18FYFQ6435Y20E5-2">
+      <gunns subtype="Subnet Interface" type="Network" drawingId="nHsqS_iWtKG0IdmvCzVl-2" />
+      <gunnsSubnetIfNodeCount count="2" />
+      <mxCell parent="ZAQFH38VJ2PCFHE1KPZ1-7" style="swimlane;startSize=20;strokeColor=#d79b00;fillColor=#ffe6cc;" vertex="1">
+        <mxGeometry height="69" width="160" x="180" y="50" as="geometry">
+          <mxRectangle height="20" width="120" x="410" y="261" as="alternateBounds" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Fluid Node" Key="MixingOut" i00.initialFluidState="fluidWater" label="1" id="NAIYQPYCYQ0OZHPAPE2I-11">
+      <gunns subtype="Fluid" type="Node" drawingId="kRivVFSr7CQNymPK-WpE-11" />
+      <mxCell parent="4LRGJ18FYFQ6435Y20E5-2" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#cce5ff;strokeColor=#000000;fontColor=#000000;fillOpacity=25;" vertex="1">
+        <mxGeometry height="20" width="20" x="26" y="31" as="geometry" />
+      </mxCell>
+    </object>
+    <object About="Network" c00.convergenceTolerance="" c01.minLinearizationPotential="" c02.minorStepLimit="" c03.decompositionLimit="" label="MixingNetworkInterface" SimVariable="None" SuperNodesOffset="2" sourceDrawing="/MixingNetworkInterface.drawio" id="3DQUP0ELAD8EB4JW1Z95-7">
+      <gunns subtype="Sub" type="Network" drawingId="rEC5gbi7_UDHWNt61vU2-7" />
+      <mxCell parent="2" style="swimlane;startSize=20;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=middle;direction=east;" vertex="1">
+        <mxGeometry height="120" width="360" x="80" y="230" as="geometry">
+          <mxRectangle height="20" width="200" x="20" y="80" as="alternateBounds" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Sub-Network Interface" label="interface_ToMixing" id="OWLHIIU7UUKY75XSGUKE-1">
+      <gunns subtype="Subnet Interface" type="Network" drawingId="nHsqS_iWtKG0IdmvCzVl-1" />
+      <gunnsSubnetIfNodeCount count="1" />
+      <mxCell parent="3DQUP0ELAD8EB4JW1Z95-7" style="swimlane;startSize=20;strokeColor=#d79b00;fillColor=#ffe6cc;" vertex="1">
+        <mxGeometry height="80" width="160" x="10" y="30" as="geometry">
+          <mxRectangle height="20" width="120" x="30" y="201" as="alternateBounds" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Link Port" label="1" id="U2WUEHYNTKYMOFANP6MG-9">
+      <gunns type="Port" drawingId="kRivVFSr7CQNymPK-WpE-9" />
+      <mxCell edge="1" parent="OWLHIIU7UUKY75XSGUKE-1" source="U2WUEHYNTKYMOFANP6MG-10" style="endArrow=none;html=1;fontSize=9;fontColor=#99CCFF;jumpStyle=arc;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.51;exitY=0.998;exitDx=0;exitDy=0;exitPerimeter=0;" target="U2WUEHYNTKYMOFANP6MG-8">
+        <mxGeometry height="50" relative="1" width="50" as="geometry">
+          <mxPoint x="100" y="49" as="sourcePoint" />
+          <mxPoint x="80" y="60" as="targetPoint" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Fluid External Demand" Ports="1=node" c00.maxConductivity="0.0" c01.expansionScaleFactor="0.0" c02.filterMinConductivity="1.0" c03.filterMinDeltaP="1.0e-8" c04.filterCapacitanceGain="0.05" c05.externalConfig="&amp;network-&gt;netInternalFluidConfig" c06.convertToType="FluidProperties::NO_FLUID" i00.malfBlockageFlag="false" i01.malfBlockageValue="0.0" i02.sourcePressure="120.0" i03.supplyCapacitance="1.0E10" i04.supplyTemperature="300.0" i05.supplyMassFractions="0" i06.supplyTcMoleFractions="0" label="external_demand" id="U2WUEHYNTKYMOFANP6MG-10">
+      <gunns numPorts="2" reqPorts="1" subtype="" type="Link" drawingId="kRivVFSr7CQNymPK-WpE-10" />
+      <mxCell parent="OWLHIIU7UUKY75XSGUKE-1" style="shape=mxgraph.pid.fittings.funnel;html=1;align=center;verticalLabelPosition=bottom;verticalAlign=top;dashed=0;labelBackgroundColor=none;fillColor=#ffffff;fontSize=12;direction=north;strokeColor=#007FFF;" vertex="1">
+        <mxGeometry height="20" width="40" x="30" y="30" as="geometry" />
+      </mxCell>
+    </object>
+    <object About="Fluid Node" Key="MixingIn" i00.initialFluidState="fluidWater" label="0" id="U2WUEHYNTKYMOFANP6MG-8">
+      <gunns subtype="Fluid" type="Node" drawingId="kRivVFSr7CQNymPK-WpE-8" />
+      <mxCell parent="OWLHIIU7UUKY75XSGUKE-1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#cce5ff;strokeColor=#000000;fontColor=#000000;fillOpacity=25;" vertex="1">
+        <mxGeometry height="20" width="20" x="115" y="30" as="geometry" />
+      </mxCell>
+    </object>
+    <object About="Sub-Network Interface" label="interface_FromMixing" id="OWLHIIU7UUKY75XSGUKE-2">
+      <gunns subtype="Subnet Interface" type="Network" drawingId="nHsqS_iWtKG0IdmvCzVl-2" />
+      <gunnsSubnetIfConnection Key="MixingIn" Link="external_supply" Map="-1, -1" Port="0" />
+      <gunnsSubnetIfNodeCount count="1" />
+      <mxCell parent="3DQUP0ELAD8EB4JW1Z95-7" style="swimlane;startSize=20;strokeColor=#d79b00;fillColor=#ffe6cc;" vertex="1">
+        <mxGeometry height="79" width="160" x="190" y="30" as="geometry">
+          <mxRectangle height="20" width="120" x="30" y="201" as="alternateBounds" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object About="Ground Node" Key="MixingOut" label="" id="4ANKJYLLVF6MVDJH2P4K-2">
+      <gunns subtype="Ground" type="Node" drawingId="s3PtnLpxNZ_IQtrXC68H-2" />
+      <mxCell parent="OWLHIIU7UUKY75XSGUKE-2" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;fillColor=#eeeeee;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.electrical.signal_sources.signal_ground;strokeColor=#36393d;direction=south;" vertex="1">
+        <mxGeometry height="20" width="20" x="20" y="31" as="geometry" />
+      </mxCell>
+    </object>
+    <object About="Fluid External Supply" Ports="0=node" c00.externalConfig="&amp;network-&gt;netInternalFluidConfig" c01.convertToType="FluidProperties::NO_FLUID" c02.useNetworkCapacitance="false" i00.malfBlockageFlag="false" i01.malfBlockageValue="0.0" i02.flowDemand="0.1" i03.demandTemperature="300.0" i04.demandMassFractions="0" i05.demandTcMoleFractions="0" label="external_supply" id="U2WUEHYNTKYMOFANP6MG-7">
+      <gunns numPorts="2" reqPorts="0" subtype="" type="Link" drawingId="kRivVFSr7CQNymPK-WpE-7" />
+      <mxCell parent="OWLHIIU7UUKY75XSGUKE-2" style="shape=mxgraph.pid.fittings.vent;html=1;align=center;verticalLabelPosition=bottom;verticalAlign=top;dashed=0;labelBackgroundColor=none;fillColor=#ffffff;fontSize=12;direction=south;strokeColor=#007FFF;" vertex="1">
+        <mxGeometry height="20" width="40" x="90" y="31" as="geometry" />
+      </mxCell>
+    </object>
+    <object About="Link Port" label="0" id="U2WUEHYNTKYMOFANP6MG-16">
+      <gunns type="Port" drawingId="kRivVFSr7CQNymPK-WpE-16" />
+      <mxCell edge="1" parent="OWLHIIU7UUKY75XSGUKE-2" source="4ANKJYLLVF6MVDJH2P4K-2" style="endArrow=none;html=1;fontSize=9;fontColor=#99CCFF;jumpStyle=arc;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.508;entryY=0.973;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" target="U2WUEHYNTKYMOFANP6MG-7">
+        <mxGeometry height="50" relative="1" width="50" as="geometry">
+          <mxPoint x="46" y="41" as="sourcePoint" />
+          <mxPoint x="70" y="40" as="targetPoint" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object label="" About="Sub-Network Interface Connection" id="4MdZ9Mt9CKOebkLAvYlq-3">
+      <gunns type="Subnet Interface Connection" />
+      <mxCell edge="1" parent="2" source="OWLHIIU7UUKY75XSGUKE-1" style="endArrow=none;html=1;fontSize=9;fontColor=#99CCFF;jumpStyle=arc;edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;dashed=1;strokeWidth=3;jumpSize=12;fillColor=#ffe6cc;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="4LRGJ18FYFQ6435Y20E5-1">
+        <mxGeometry height="50" relative="1" width="50" as="geometry">
+          <Array as="points">
+            <mxPoint x="30" y="300" />
+            <mxPoint x="30" y="120" />
+          </Array>
+          <mxPoint x="10" y="130" as="sourcePoint" />
+          <mxPoint x="60" y="130" as="targetPoint" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+    <object label="" About="Sub-Network Interface Connection" id="4MdZ9Mt9CKOebkLAvYlq-4">
+      <gunns type="Subnet Interface Connection" />
+      <mxCell edge="1" parent="2" source="4LRGJ18FYFQ6435Y20E5-2" style="endArrow=none;html=1;fontSize=9;fontColor=#99CCFF;jumpStyle=arc;edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;dashed=1;strokeWidth=3;jumpSize=12;fillColor=#ffe6cc;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="OWLHIIU7UUKY75XSGUKE-2">
+        <mxGeometry height="50" relative="1" width="50" as="geometry">
+          <Array as="points">
+            <mxPoint x="480" y="125" />
+            <mxPoint x="480" y="300" />
+          </Array>
+          <mxPoint x="470" y="130" as="sourcePoint" />
+          <mxPoint x="520" y="130" as="targetPoint" />
+        </mxGeometry>
+      </mxCell>
+    </object>
+  </root>
+</mxGraphModel>
